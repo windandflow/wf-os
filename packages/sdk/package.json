@@ -1,0 +1,22 @@
+{
+  "name": "@windandflow/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for building applications on W&F OS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["web3", "network-state", "community", "dao", "base"],
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "peerDependencies": {
+    "ethers": "^6.0.0"
+  }
+}

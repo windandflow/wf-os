@@ -1,0 +1,95 @@
+{
+  "$schema": "./state-config.schema.json",
+
+  "state_id": "sinwolri",
+  "name": "달뜨는마을",
+  "name_en": "Daltteuneun Village",
+  "description": "인제 신월리. Wind & Flow 네트워크의 첫 번째 소도.",
+
+  "manifesto": "우리는 서로를 본다. 그 봄이 기억이 되고, 정당성이 되고, 거버넌스가 된다.\n\nWe see one another. That seeing becomes memory, memory becomes legitimacy, and legitimacy becomes governance.",
+
+  "approval": {
+    "type": "single",
+    "threshold": 1
+  },
+
+  "invitation": {
+    "limit_per_member": 5,
+    "cooldown_days": 7,
+    "expiry_days": 7
+  },
+
+  "visa_levels": {
+    "0": {
+      "name": "관찰자",
+      "name_en": "Observer",
+      "criteria": "초대 승인",
+      "rights": ["browse", "attend_events"],
+      "don_mining": {
+        "can_be_contributor": true,
+        "can_be_appreciator": false,
+        "can_witness_showup": false
+      }
+    },
+    "1": {
+      "name": "참여자",
+      "name_en": "Participant",
+      "criteria": "방문 3회 이상",
+      "rights": ["submit_opinions", "join_events"],
+      "don_mining": {
+        "can_be_contributor": true,
+        "can_be_appreciator": true,
+        "can_witness_showup": false
+      }
+    },
+    "2": {
+      "name": "기여자",
+      "name_en": "Contributor",
+      "criteria": "지속 기여, 커뮤니티 추천",
+      "rights": ["voting", "proposals"],
+      "don_mining": {
+        "can_be_contributor": true,
+        "can_be_appreciator": true,
+        "can_witness_showup": false
+      }
+    },
+    "3": {
+      "name": "돌봄자",
+      "name_en": "Steward",
+      "criteria": "협동조합 가입 + 커뮤니티 추천",
+      "rights": ["operational", "visa_witness", "coop_member"],
+      "coop_required": true,
+      "don_mining": {
+        "can_be_contributor": true,
+        "can_be_appreciator": true,
+        "can_witness_showup": true
+      }
+    },
+    "4": {
+      "name": "기억 보관자",
+      "name_en": "Elder",
+      "criteria": "장기 헌신, 다수 Steward 추천",
+      "rights": ["mediation", "governance_oversight"],
+      "don_mining": {
+        "can_be_contributor": true,
+        "can_be_appreciator": true,
+        "can_witness_showup": true
+      }
+    }
+  },
+
+  "checkin_spots": [],
+
+  "cooperative": {
+    "name": "달뜨는마을 협동조합",
+    "share_amount_krw": 30000,
+    "level_required": "3",
+    "note": "Level 3 취득 시 협동조합 가입 필요. 오프체인 조합원 명부와 분기별 대조."
+  },
+
+  "theme": {
+    "primary_color": "#1B3A5C",
+    "accent_color": "#4A90A4",
+    "font": "Pretendard"
+  }
+}
