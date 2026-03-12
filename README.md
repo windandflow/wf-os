@@ -74,7 +74,7 @@ const passport = await wf.membership.issuePassport({
 // Issue a Visa to a specific State (on-chain NFT)
 const visa = await wf.membership.issueVisa({
   entityId: entity.id,
-  stateId: 'sinwolri',
+  stateId: 'newmoon',
   level: 0,
   invitedBy: inviterEntityId,
 });
@@ -103,11 +103,12 @@ W&F OS organizes all community data into seven independent domains:
 
 ## First Deployment
 
-The first W&F OS deployment is [Daltteuneun Village (달뜨는마을)](https://windandflow.xyz/sodo/sinwolri), a community in Inje, South Korea. The official L4 app is [village-hall](https://github.com/windandflow/village-hall).
+The first W&F OS deployment is [New Moon Village (달뜨는마을)](https://windandflow.xyz/sodo/newmoon), a community in Inje, South Korea. The official L4 app is [village-hall](https://github.com/windandflow/village-hall).
 
 ## Docs
 
-- [System Specification v0.7](docs/WF-OS-Spec-v0.7.md)
+- [System Specification v0.7.1](docs/WF-OS-Spec-v0.7.1.md)
+- [MVP PRD v0.5](docs/WF-OS-MVP-PRD-v0.5.md)
 - [Recognition Principle](docs/Recognition_Principle.md)
 - [Recognition Protocol](docs/Recognition_Protocol.md)
 - [SDK API Reference](packages/sdk/docs/api.md)

@@ -130,7 +130,7 @@ contract WFVisa is ERC721, Ownable {
         _requireOwned(tokenId);
         // MVP: return placeholder. Real implementation uses metadata API.
         return string(abi.encodePacked(
-            "https://windandflow.xyz/api/visa/",
+            "https://windandflow.xyz/api/metadata/visa/",
             _toString(tokenId)
         ));
     }

@@ -4,14 +4,21 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/// @title IERC4906
+/// @notice ERC-4906: EIP-721 Metadata Update Extension
+interface IERC4906 {
+    event MetadataUpdate(uint256 _tokenId);
+    event BatchMetadataUpdate(uint256 _fromTokenId, uint256 _toTokenId);
+}
+
 /**
  * @title WFPassport
  * @notice Soulbound Token (SBT) representing W&F Network citizenship.
  *         Non-transferable. One per address. Minted on manifesto signing.
  *
- * Based on ERC-5192 (Minimal Soulbound NFTs).
+ * Based on ERC-5192 (Minimal Soulbound NFTs). Supports ERC-4906 for metadata updates.
  */
-contract WFPassport is ERC721, Ownable {
+contract WFPassport is ERC721, Ownable, IERC4906 {
     uint256 private _tokenIdCounter;
 
     // Manifesto signature hash per token
@@ -22,6 +29,8 @@ contract WFPassport is ERC721, Ownable {
 
     // ERC-5192: Locked event
     event Locked(uint256 tokenId);
+
+    // ERC-4906: MetadataUpdate (inherited from IERC4906)
 
     constructor(address initialOwner)
         ERC721("Wind & Flow Passport", "WFPASS")
@@ -88,5 +97,47 @@ contract WFPassport is ERC721, Ownable {
             if (_ownerOf(i) == holder) return i;
         }
         return 0;
+    }
+
+    /**
+     * @notice ERC-4906: Notify marketplaces/indexers to refresh metadata for a token.
+     */
+    function notifyMetadataUpdate(uint256 tokenId) external onlyOwner {
+        _requireOwned(tokenId);
+        emit MetadataUpdate(tokenId);
+    }
+
+    /**
+     * @notice Token URI pointing to the W&F metadata API.
+     */
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        _requireOwned(tokenId);
+        return string(abi.encodePacked(
+            "https://windandflow.xyz/api/metadata/passport/",
+            _toString(tokenId)
+        ));
+    }
+
+    /**
+     * @notice Supports ERC-721, ERC-4906, and ERC-5192 interfaces.
+     */
+    function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
+        // ERC-4906 interfaceId = bytes4(keccak256("MetadataUpdate(uint256)") ^ keccak256("BatchMetadataUpdate(uint256,uint256)"))
+        return interfaceId == 0x49064906 || super.supportsInterface(interfaceId);
+    }
+
+    // Simple uint to string helper
+    function _toString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) return "0";
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) { digits++; temp /= 10; }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
     }
 }
